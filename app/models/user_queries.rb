@@ -3,7 +3,6 @@ class UserQueries
   @@connection = ActiveRecord::Base.connection
 
   def self.find_friends(user_id)
-    query = "#{user_id}"
     result = @@connection.execute(%Q{
     SELECT * FROM friends WHERE user1=#{@@connection.quote(user_id)} OR user2=#{@@connection.quote(user_id)}})
     friends_list = []

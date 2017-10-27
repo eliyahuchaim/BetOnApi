@@ -4,4 +4,8 @@ class User < ApplicationRecord
   has_many :parties, through: :groups
   has_many :wagers
 
+  def friends
+    UserQueries.find_friends(self.id)
+  end
+
 end
