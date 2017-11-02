@@ -2,7 +2,6 @@ class Bet < ApplicationRecord
   belongs_to :party
   has_many :wagers
 
-
   def self.create_bet payload
     start_d = Date.parse(payload["start_date"])
     end_d = Date.parse(payload["end_date"])

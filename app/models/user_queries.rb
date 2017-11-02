@@ -16,6 +16,4 @@ class UserQueries
     friends_list
   end
 
-
-
 end

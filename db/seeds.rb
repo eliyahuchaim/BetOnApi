@@ -20,6 +20,11 @@ Group.create([{party_id: party.id, user_id: david.id},{party_id: party.id, user_
 
 bet1 = Bet.create(value: 20, bet_type: "giants will win another game", party_id: party.id)
 
+par = Party.last
+payload = {"bet_type" => "knicks will go to the playoffs", "value" => 10, "party_id" => par.id, "start_date" => "2017-10-30", "end_date" => "2017-10-31"}
+
+bet2 = Bet.create_bet(payload)
+
 david_wager = Wager.create(bet_answer: false, user_id: david.id, bet_id: bet1.id)
 eli_wager = Wager.create(bet_answer: false, user_id: eli.id, bet_id: bet1.id)
 dj_wager = Wager.create(bet_answer: true, user_id: eli.id, bet_id: bet1.id)
