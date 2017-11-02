@@ -1,7 +1,7 @@
 class Wager < ApplicationRecord
   belongs_to :user
   has_one :bet
-  validate :validate_user_points, :check_if_user
+  validate :validate_user_points, :cant_bet_twice
 
   def validate_user_points
     @user = User.find(user_id)
@@ -14,7 +14,7 @@ class Wager < ApplicationRecord
     !!@bet.wagers.find_by(user_id: user_id)
   end
 
-  def check_if_user
+  def cant_bet_twice
     errors.add(:user_id, "you cannot bet twice on this bet") if user_cannot_bet_twice
   end
 
