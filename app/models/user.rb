@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :groups
   has_many :parties, through: :groups
   has_many :wagers
+  validates_uniqueness_of :username, :message => "is already taken"
 
   def friends
     UserQueries.find_friends(self.id)

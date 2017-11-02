@@ -9,13 +9,9 @@ class Wager < ApplicationRecord
     errors.add(:points, "You dont have enough points to bet on this wager") unless @user.points - @bet.id > 0
   end
 
-  def user_cannot_bet_twice
-    @bet = Bet.find(bet_id)
-    !!@bet.wagers.find_by(user_id: user_id)
-  end
-
   def cant_bet_twice
-    errors.add(:user_id, "you cannot bet twice on this bet") if user_cannot_bet_twice
+    @bet = Bet.find(bet_id)
+    errors.add(:user_id, "you cannot bet twice on this bet") if !!@bet.wagers.find_by(user_id: user_id)
   end
 
 
