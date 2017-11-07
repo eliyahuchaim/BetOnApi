@@ -22,6 +22,7 @@ gem 'binding_of_caller'
 gem 'better_errors'
 gem 'jwt'
 gem 'byebug'
+gem 'figaro'
 
 
 

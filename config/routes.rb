@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  namespace :Api do
-    namespace :V1 do
+  namespace :api do
+    namespace :v1 do
+
+      resources :users
+
+      post '/login', to: 'sessions#create'
+      get '/friends', to: 'users#friends'
+      
     end
   end
-  # resources :users etc. 
 end
