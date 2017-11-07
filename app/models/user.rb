@@ -17,4 +17,20 @@ class User < ApplicationRecord
     end
   end
 
+  def give_points receiving_user_id, points
+    @receiving_user = User.find(receiving_user_id)
+    if self.points - points > 0
+      updated_points = self.points - points
+      self.update(points: updated_points)
+      @receiving_user.increment!("points", by = points)
+    else
+      false
+    end
+
+  end
+
+  def request_points from_user_id, points
+
+  end
+
 end
