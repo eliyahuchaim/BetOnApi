@@ -26,11 +26,14 @@ class User < ApplicationRecord
     else
       false
     end
-
   end
 
-  def request_points from_user_id, points
+  def parties_user_owns
+    Party.find_by(owner_id: self.id)
+  end
 
+
+  def request_points from_user_id, points
   end
 
 end

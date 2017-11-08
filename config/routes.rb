@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 
       post '/login', to: 'sessions#create'
       get '/friends', to: 'users#friends'
-      
+      post '/givepoints', to: 'users#give_points'
+
     end
   end
 end
