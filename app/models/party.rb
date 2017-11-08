@@ -7,12 +7,13 @@ class Party < ApplicationRecord
   def self.create_party owner_id, title
     @party = Party.create(title: title, owner_id: owner_id)
     Group.create(party_id: @party.id, user_id: owner_id)
+    @party.id ? @party : false
   end
 
   def self.invite_people_to_party party_id, invited_user_id, owner_id
     @party = Party.find(party_id)
     if @party.owner_id == owner_id.to_i
-      Group.create(party_id: party_id.to_i, user_id: user_id.to_i)
+      Group.create(party_id: party_id.to_i, user_id: invited_user_id.to_i)
     else
       false
     end
