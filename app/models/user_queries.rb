@@ -16,4 +16,13 @@ class UserQueries
     friends_list
   end
 
+  def self.check_if_group_has_user party_id, user_id
+    result = @@connection.execute(%Q{
+      SELECT * FROM groups
+      WHERE party_id=#{@@connection.quote(party_id)}
+      AND user_id=#{@@connection.quote(user_id)}})
+
+      result.values.length > 0 ? true : false
+  end
+
 end
