@@ -2,15 +2,26 @@ class Bet < ApplicationRecord
   belongs_to :party
   has_many :wagers
 
-  def self.create_bet payload
+  def self.create_bet payload, current_user_id
+    start_d = Date.parse(Time.now.to_s) if payload["start_date"].length == 0
     start_d = Date.parse(payload["start_date"])
     end_d = Date.parse(payload["end_date"])
-    @bet = Bet.create(bet_type: payload["bet_type"], value: payload["value"], ended: false, party_id: payload["party_id"], start_date: start_d, end_date: end_d)
-    if @bet
-      @bet
-    else
-      @bet.errors.full_messeges
+
+    check = Bet.user_is_in_party current_user_id, payload["party_id"]
+    if check != false
+      @bet = Bet.create(bet_type: payload["bet_type"], value: payload["value"], ended: false, party_id: payload["party_id"], start_date: start_d, end_date: end_d, owner_id: current_user_id)
+      if @bet
+        @bet
+      else
+        false
+      end
     end
+  end
+
+  def self.update_bet bet_id, payload, current_user_id
+    @bet = Bet.find(bet_id)
+    @bet.update(result: payload["result"]) if @bet.owner_id == current_user_id
+    @bet
   end
 
   def self.find_ended_bets
@@ -30,8 +41,8 @@ class Bet < ApplicationRecord
     end
   end
 
-
-
-
+  def self.user_is_in_party current_user_id, party_id
+    false unless Party.find(party_id).users.select {|user| user.id == current_user_id}.length > 0
+  end
 
 end
