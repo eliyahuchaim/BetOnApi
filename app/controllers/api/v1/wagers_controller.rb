@@ -19,6 +19,11 @@ class Api::V1::WagersController < ApplicationController
 
   def users_wagers
     @users_wagers = User.find(params[:id]).wagers
+    @wagers_with_bets = @users_wagers.map do |wager|
+      @bet = Bet.find(wager.bet_id)
+      {bet: @bet.bet_type, value: @bet.value, result: @bet.result, ended: @bet.ended, start_date: @bet.start_date, end_date: @bet.end_date, wager: wager}
+    end
+    render json: {wagers: @wagers_with_bets}
   end
 
 

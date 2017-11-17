@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get '/publicpartyshow/:id', to: 'parties#public_party_info'
       post '/invitetoparty', to: 'parties#invite_user'
       post '/mass_invite', to: 'parties#mass_invite'
+      get '/my-wagers/:id', to: 'wagers#users_wagers'
 
     end
   end
