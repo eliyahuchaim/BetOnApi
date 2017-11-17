@@ -1,5 +1,5 @@
 class Api::V1::BetsController < ApplicationController
-  before_action :authorized
+  skip_before_action :authorized, only: [:show]
 
   def create
     @bet = Bet.create_bet(create_bet_params, current_user.id)
@@ -17,10 +17,13 @@ class Api::V1::BetsController < ApplicationController
 
 
   def destroy
+    render json: {message: "Bet was destroyed"} if Bet.destroy(params[:id])
   end
 
 
   def show
+    @bet = Bet.find(params[:id])
+    render json: {bet: @bet}
   end
 
 
