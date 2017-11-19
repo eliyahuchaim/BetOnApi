@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       post '/invitetoparty', to: 'parties#invite_user'
       post '/mass_invite', to: 'parties#mass_invite'
       get '/my-wagers/:id', to: 'wagers#users_wagers'
-
+      get '/top-users', to: 'index#render_top_users'
     end
   end
 end

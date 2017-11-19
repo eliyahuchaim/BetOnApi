@@ -25,4 +25,13 @@ class UserQueries
       result.values.length > 0 ? true : false
   end
 
+  def self.top_users
+    result = @@connection.execute(%Q{
+      SELECT username, id, points
+      FROM users
+      ORDER BY points DESC
+    })
+    result.values.map {|u| {id: u[1], username: u[0], points: u[2]}}
+  end
+
 end
