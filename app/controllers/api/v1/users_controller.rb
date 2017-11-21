@@ -38,7 +38,7 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:firstname, :lastname, :username, :password)
+    params.require(:user).permit(:firstname, :lastname, :username, :password, :avatar)
   end
 
   def give_points_params
