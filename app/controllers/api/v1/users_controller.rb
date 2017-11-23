@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create, :show]
+  skip_before_action :authorized, only: [:create, :show, :index]
 
   def create
     @user = User.create(user_params)
@@ -8,6 +8,13 @@ class Api::V1::UsersController < ApplicationController
     else
       render json: {message: "User was not created"}
     end
+  end
+
+  def index
+    exclude_columns = ['password_digest', 'created_at', 'updated_at']
+    columns = User.attribute_names - exclude_columns
+    @users_arr = User.select(columns)
+    render json: {all_users: @users_arr}
   end
 
 
