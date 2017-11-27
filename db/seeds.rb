@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create([{username: "elisings", password: "hi", firstname: "eli", lastname: "goldstein"}, {username: "david", password: "hi", firstname: "david", lastname: "david"},{username: "dj", password: "hi", firstname: "dj", lastname: "delete"}])
+User.create([{username: "elisings", password: "elisings", firstname: "eli", lastname: "goldstein"}, {username: "david", password: "david", firstname: "david", lastname: "david"},{username: "dj", password: "dj", firstname: "dj", lastname: "delete"}, {username: "cat", password: "cat", firstname: "cat", lastname: "cat"}])
 
 eli = User.first
 david = User.find_by(username: "david")
