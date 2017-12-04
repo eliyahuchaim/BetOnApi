@@ -23,7 +23,17 @@ class Api::V1::UsersController < ApplicationController
 
 
   def show
-    @user = User.find(params[:id])
+    exclude_columns = {
+      "password_digest" => 1,
+      "created_at" => 1,
+      "updated_at" => 1
+    }
+    @user = {}
+    @tempUser = User.find(params[:id])
+    @attributes = @tempUser.attributes
+    @tempUser.attribute_names.each do |att|
+      @user[att] = @attributes[att] if !exclude_columns[att]
+    end
     render json: {user: @user} if @user
   end
 
