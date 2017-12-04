@@ -32,7 +32,7 @@ class Api::V1::UsersController < ApplicationController
     @tempUser = User.find(params[:id])
     @attributes = @tempUser.attributes
     @tempUser.attribute_names.each do |att|
-      @user[att] = @attributes[att] if !exclude_columns[att]
+      @user[att.to_sym] = @attributes[att] if !exclude_columns[att]
     end
     render json: {user: @user} if @user
   end
