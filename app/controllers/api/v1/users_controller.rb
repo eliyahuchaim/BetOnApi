@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create, :show, :index]
+  skip_before_action :authorized, only: [:create, :index, :publicShow]
 
   def create
     @user = User.create(user_params)
@@ -21,8 +21,7 @@ class Api::V1::UsersController < ApplicationController
   def update
   end
 
-
-  def show
+  def publicShow
     exclude_columns = {
       "password_digest" => 1,
       "created_at" => 1,
@@ -30,6 +29,22 @@ class Api::V1::UsersController < ApplicationController
     }
     @user = {}
     @tempUser = User.find(params[:id])
+    @attributes = @tempUser.attributes
+    @tempUser.attribute_names.each do |att|
+      @user[att.to_sym] = @attributes[att] if !exclude_columns[att]
+    end
+    render json: {user: @user} if @user
+  end
+
+
+  def private_show
+    @tempUser = User.find(current_user.id)
+    exclude_columns = {
+      "password_digest" => 1,
+      "created_at" => 1,
+      "updated_at" => 1
+    }
+    @user = {}
     @attributes = @tempUser.attributes
     @tempUser.attribute_names.each do |att|
       @user[att.to_sym] = @attributes[att] if !exclude_columns[att]

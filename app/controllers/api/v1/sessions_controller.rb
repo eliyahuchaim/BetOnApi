@@ -6,7 +6,7 @@ class Api::V1::SessionsController < ApplicationController
     if @user && @user.authenticate(params[:password])
       payload = {user_id: @user.id}
       token = issue_auth_token(payload)
-      render json: {what_you_looking_at: token, user_id: @user.id}
+      render json: {what_you_looking_at: token}
     else
       render json: {message: "Authorization Error"}
     end
