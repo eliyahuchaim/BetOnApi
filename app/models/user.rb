@@ -9,6 +9,14 @@ class User < ApplicationRecord
     UserQueries.find_friends(self.id)
   end
 
+  # TODO: create method that gives user all pending friend requests
+
+  def friend_requests
+    FriendRequest.all.select do |req|
+      req.to_user_id == self.id && req.pending
+    end
+  end
+
   def self.update_user_points(wagers, bet_result, bet_value)
     wagers.each do |w|
       user = User.find(w.user_id)
