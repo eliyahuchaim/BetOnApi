@@ -56,7 +56,8 @@ class Api::V1::UsersController < ApplicationController
   def friends
     @user = User.find(current_user.id)
     @friends = @user.friends
-    render json: {friends: @friends} if !!@friends
+    @requests = @user.friend_requests
+    render json: {friends: @friends, requests: @friend_requests}
   end
 
 
