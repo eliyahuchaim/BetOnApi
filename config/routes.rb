@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       get '/top-users', to: 'index#render_top_users'
       get '/publicShow/:id', to: 'users#publicShow'
       get '/user/show', to: 'users#private_show'
+      post '/send-friend-request', to: 'users#friend_request'
+      post '/update-request', to: 'users#update_friend_request'
     end
   end
 end

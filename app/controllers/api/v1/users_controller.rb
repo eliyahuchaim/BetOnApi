@@ -67,6 +67,17 @@ class Api::V1::UsersController < ApplicationController
     render json: {status: "You don't have enough points"} unless @user.give_points(give_points_params[:receiving_user_id], points)
   end
 
+  def friend_request
+    @current_user = current_user
+    @request = FriendRequest.create(from_user_id: @current_user.id, to_user_id: friend_request_params[:to_user_id])
+    render json: {status: "success", code: 200}
+  end
+
+  def update_friend_request
+    @request = FriendRequest.update_request friend_request_params[:request_id], friend_request_params[:accepted]
+    render json: {request: @request}
+  end
+
 
   private
 
@@ -76,6 +87,10 @@ class Api::V1::UsersController < ApplicationController
 
   def give_points_params
     params.require(:user).permit(:receiving_user_id, :points)
+  end
+
+  def friend_request_params
+    params.require(:request).permit(:to_user_id, :accepted, :request_id)
   end
 
 
