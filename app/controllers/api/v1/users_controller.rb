@@ -57,7 +57,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find(current_user.id)
     @friends = @user.friends
     @requests = @user.friend_requests
-    render json: {friends: @friends, requests: @friend_requests}
+    render json: {friends: @friends, requests: @requests}
   end
 
 
