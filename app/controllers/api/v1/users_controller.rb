@@ -74,8 +74,13 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update_friend_request
-    @request = FriendRequest.update_request friend_request_params[:request_id], friend_request_params[:accepted]
-    render json: {request: @request}
+
+    params["request"].keys.each do |k|
+      @req = params["request"][k]
+      FriendRequest.update_request @req["id"], @req["accepted"]
+    end
+
+    render json: {status: 200}
   end
 
 
