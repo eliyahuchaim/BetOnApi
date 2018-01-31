@@ -38,7 +38,7 @@ class Api::V1::PartiesController < ApplicationController
     @party_id = party_mass_invite_params[:party_id]
 
     invite = Party.mass_invite @party_id, @users_arr, current_user.id
-    
+
     render json: {result: "success", party_users: Party.find(@party_id).users.map {|u| {username: u.username}}} if invite != false
   end
 
@@ -46,7 +46,7 @@ class Api::V1::PartiesController < ApplicationController
   private
 
   def party_params
-    params.require(:party).permit(:title, :owner_id)
+    params.require(:party).permit(:title)
   end
 
   def party_invite_params
