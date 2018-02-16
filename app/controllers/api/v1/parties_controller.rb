@@ -7,6 +7,19 @@ class Api::V1::PartiesController < ApplicationController
     render json: {party: @party} if @party
   end
 
+  def users_parties
+    @user = User.find(current_user.id)
+    @parties = @user.parties
+
+    results = @parties.map do |party|
+      @party_users = party.users.size
+      @admin = User.find(party.owner_id)
+      # TODO: add method to find total points lost and gained
+      {info: party, users_count: @party_users, admin: @admin}
+    end
+    render json: {parties: results, code: 200}
+  end
+
 
   def index
     render json: {parties: Party.all}

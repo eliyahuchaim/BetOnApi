@@ -52,7 +52,6 @@ class Api::V1::UsersController < ApplicationController
     render json: {user: @user} if @user
   end
 
-
   def friends
     @user = User.find(current_user.id)
     @friends = @user.friends
@@ -80,7 +79,7 @@ class Api::V1::UsersController < ApplicationController
       FriendRequest.update_request @req["id"], @req["accepted"]
     end
 
-    render json: {status: 200}
+    render json: {status: 'success', code: 200}
   end
 
 

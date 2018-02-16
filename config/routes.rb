@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get '/my-wagers/:id', to: 'wagers#users_wagers'
       get '/top-users', to: 'index#render_top_users'
       get '/publicShow/:id', to: 'users#publicShow'
+      get '/users-parties', to: 'parties#users_parties'
       get '/user/show', to: 'users#private_show'
       post '/send-friend-request', to: 'users#friend_request'
       post '/update-request', to: 'users#update_friend_request'
